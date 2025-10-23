@@ -1,4 +1,3 @@
-//
 class Kendaraan {
   constructor(merk) {
     this.merk = merk;
