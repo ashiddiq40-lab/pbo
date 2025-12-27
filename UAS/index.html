@@ -11,7 +11,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #74ebd5, #9face6);
     }
 
@@ -19,79 +19,78 @@
       width: 320px;
       padding: 25px;
       background: white;
-      border-radius: 12px;
+      border-radius: 10px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       text-align: center;
-    }
-
-    h2 {
-      margin-bottom: 15px;
-      color: #333;
+      animation: fadeIn 0.4s ease;
     }
 
     input {
       width: 100%;
       padding: 10px;
       margin: 8px 0;
-      border-radius: 6px;
+      border-radius: 5px;
       border: 1px solid #ccc;
-      outline: none;
-    }
-
-    input:focus {
-      border-color: #6c63ff;
     }
 
     button {
       width: 100%;
       padding: 10px;
       margin-top: 10px;
-      background: #6c63ff;
-      color: white;
       border: none;
-      border-radius: 6px;
-      cursor: pointer;
+      border-radius: 5px;
+      color: white;
       font-size: 15px;
+      cursor: pointer;
     }
 
-    button:hover {
-      background: #554fd8;
+    .btn-login {
+      background: #1e90ff;
     }
 
-    #infoUser {
+    .btn-login:hover {
+      background: #187bcd;
+    }
+
+    .btn-logout {
+      background: #e74c3c;
+    }
+
+    .btn-logout:hover {
+      background: #c0392b;
+    }
+
+    #dashboard {
       display: none;
     }
 
     .welcome {
+      font-size: 18px;
       font-weight: bold;
-      color: #6c63ff;
-      margin-bottom: 15px;
+      color: #1e90ff;
+      margin-bottom: 20px;
     }
 
-    .info {
-      text-align: left;
-      margin-top: 10px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <!-- LOGIN -->
-  <div class="box" id="loginBox">
+  <!-- LOGIN PAGE -->
+  <div class="box" id="loginPage">
     <h2>Login</h2>
     <input type="text" id="username" placeholder="Username">
     <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Masuk</button>
+    <button class="btn-login" onclick="login()">Login</button>
   </div>
 
-  <!-- INFO USER -->
-  <div class="box" id="infoUser">
-    <p class="welcome" id="welcomeText"></p>
-    <div class="info">
-      <p id="nama"></p>
-      <p id="user"></p>
-      <p id="level"></p>
-    </div>
+  <!-- DASHBOARD -->
+  <div class="box" id="dashboard">
+    <div class="welcome" id="welcomeText"></div>
+    <button class="btn-logout" onclick="logout()">Logout</button>
   </div>
 
   <script src="app.js"></script>
