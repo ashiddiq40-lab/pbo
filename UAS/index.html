@@ -3,18 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <title>Login Sederhana</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    .box {
+      width: 300px;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+    }
+
+    button {
+      width: 100%;
+      padding: 8px;
+      background: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #2980b9;
+    }
+
+    /* halaman info disembunyikan dulu */
+    #infoPage {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
-  <h2>Login</h2>
+  <!-- HALAMAN LOGIN -->
+  <div class="box" id="loginPage">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+  </div>
 
-  <input type="text" id="username" placeholder="Username"><br><br>
-  <input type="password" id="password" placeholder="Password"><br><br>
-  <button onclick="login()">Login</button>
-
-  <hr>
-
-  <div id="hasil"></div>
+  <!-- HALAMAN INFO USER -->
+  <div class="box" id="infoPage">
+    <h2>Info Pengguna</h2>
+    <p id="infoNama"></p>
+    <p id="infoUsername"></p>
+    <p id="infoLevel"></p>
+    <button onclick="logout()">Logout</button>
+  </div>
 
   <script src="script.js"></script>
 </body>
