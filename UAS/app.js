@@ -1,25 +1,17 @@
 // DATASET JSON LOKAL
 const dataUser = [
-  {
-    username: "admin",
-    password: "123",
-    nama: "Administrator"
-  },
-  {
-    username: "user",
-    password: "456",
-    nama: "User Biasa"
-  }
+  { username: "admin", password: "123", nama: "Administrator" },
+  { username: "user",  password: "456", nama: "User Biasa" }
 ];
 
-// CLASS (OOP)
+// CLASS OOP
 class Login {
   constructor(users) {
     this.users = users;
   }
 
   cekUsername(username) {
-    return this.users.find(user => user.username === username);
+    return this.users.find(u => u.username === username);
   }
 
   cekPassword(user, password) {
@@ -32,39 +24,47 @@ const loginApp = new Login(dataUser);
 
 // LOGIN
 function login() {
-  const usernameInput = document.getElementById("username");
-  const passwordInput = document.getElementById("password");
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
 
-  const username = usernameInput.value;
-  const password = passwordInput.value;
-
-  // CEK USERNAME
   const user = loginApp.cekUsername(username);
   if (!user) {
     alert("Username salah");
     return;
   }
 
-  // CEK PASSWORD
   if (!loginApp.cekPassword(user, password)) {
     alert("Password salah");
     return;
   }
 
-  // LOGIN BERHASIL
-  usernameInput.value = "";
-  passwordInput.value = "";
+  // SIMPAN KE LOCAL STORAGE
+  localStorage.setItem("login", "true");
+  localStorage.setItem("username", user.username);
+  localStorage.setItem("nama", user.nama);
 
+  tampilDashboard(user.nama);
+}
+
+// TAMPIL DASHBOARD
+function tampilDashboard(nama) {
   document.getElementById("loginPage").style.display = "none";
   document.getElementById("dashboard").style.display = "block";
-
   document.getElementById("welcomeText").innerText =
-    `Selamat datang kembali, ${user.nama} 👋`;
+    `Selamat datang kembali, ${nama} 👋`;
 }
 
 // LOGOUT
 function logout() {
+  localStorage.clear();
   document.getElementById("dashboard").style.display = "none";
   document.getElementById("loginPage").style.display = "block";
 }
 
+// AUTO LOGIN JIKA ADA DATA DI LOCAL STORAGE
+window.onload = function () {
+  if (localStorage.getItem("login") === "true") {
+    const nama = localStorage.getItem("nama");
+    tampilDashboard(nama);
+  }
+};
