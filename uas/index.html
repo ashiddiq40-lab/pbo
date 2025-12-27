@@ -1,176 +1,186 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Login Web OOP</title>
+<meta charset="UTF-8">
+<title>Login JSON OOP</title>
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ff0000, #009900);
-    }
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff0000, #009900);
+  }
 
-    .box {
-      width: 320px;
-      padding: 25px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-      text-align: center;
-    }
+  .card {
+    width: 330px;
+    padding: 25px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    text-align: center;
+  }
 
-    h2 {
-      margin-bottom: 15px;
-    }
+  h2 {
+    margin-bottom: 20px;
+  }
 
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
 
-    button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 5px;
-      color: white;
-      font-size: 15px;
-      cursor: pointer;
-    }
+  button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+  }
 
-    .btn-login {
-      background: #1e90ff;
-    }
+  .login-btn {
+    background: #1e90ff;
+  }
 
-    .btn-login:hover {
-      background: #187bcd;
-    }
+  .logout-btn {
+    background: #e74c3c;
+  }
 
-    .btn-logout {
-      background: #e74c3c;
-    }
+  #dashboard {
+    display: none;
+  }
 
-    .btn-logout:hover {
-      background: #c0392b;
-    }
-
-    #dashboard {
-      display: none;
-    }
-
-    .welcome {
-      font-size: 18px;
-      font-weight: bold;
-      color: #27ae60;
-      margin-bottom: 20px;
-    }
-  </style>
+  .welcome {
+    font-size: 18px;
+    font-weight: bold;
+    color: #27ae60;
+    margin-bottom: 20px;
+  }
+</style>
 </head>
 <body>
 
-  <!-- LOGIN PAGE -->
-  <div class="box" id="loginPage">
-    <h2>Login</h2>
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
-    <button class="btn-login" onclick="login()">Login</button>
-  </div>
+<!-- LOGIN -->
+<div class="card" id="loginPage">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
+  <button class="login-btn" onclick="login()">Login</button>
+</div>
 
-  <!-- DASHBOARD -->
-  <div class="box" id="dashboard">
-    <div class="welcome" id="welcomeText"></div>
-    <button class="btn-logout" onclick="logout()">Logout</button>
-  </div>
+<!-- DASHBOARD -->
+<div class="card" id="dashboard">
+  <div class="welcome" id="welcomeText"></div>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</div>
 
-  <script>
-    // DATASET JSON LOKAL
-    const dataUser = [
-      { username: "admin",   password: "123", nama: "Administrator" },
-      { username: "user",    password: "456", nama: "User" },
-      { username: "shiddiq", password: "000", nama: "Shiddiq"}
-    ];
+<script>
+/* =======================
+   DATASET JSON
+======================= */
+const dataUser = [
+  { username: "admin", password: "123", nama: "Administrator" },
+  { username: "user", password: "456", nama: "User Biasa" }
+];
 
-    // CLASS (OOP)
-    class Login {
-      constructor(users) {
-        this.users = users;
-      }
+/* =======================
+   SIMPAN DATASET KE LOCAL STORAGE
+======================= */
+if (!localStorage.getItem("dataUser")) {
+  localStorage.setItem("dataUser", JSON.stringify(dataUser));
+}
 
-      cekUsername(username) {
-        return this.users.find(u => u.username === username);
-      }
+/* =======================
+   CLASS LOGIN (OOP)
+======================= */
+class LoginApp {
+  constructor(users) {
+    this.users = users;
+  }
 
-      cekPassword(user, password) {
-        return user.password === password;
-      }
-    }
+  findUser(username) {
+    return this.users.find(u => u.username === username);
+  }
 
-    // OBJECT
-    const loginApp = new Login(dataUser);
+  checkPassword(user, password) {
+    return user.password === password;
+  }
+}
 
-    // LOGIN
-    function login() {
-      const usernameInput = document.getElementById("username");
-      const passwordInput = document.getElementById("password");
+/* =======================
+   OBJECT DARI CLASS
+======================= */
+const usersFromStorage = JSON.parse(localStorage.getItem("dataUser"));
+const app = new LoginApp(usersFromStorage);
 
-      const username = usernameInput.value;
-      const password = passwordInput.value;
+/* =======================
+   LOGIN FUNCTION
+======================= */
+function login() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
 
-      const user = loginApp.cekUsername(username);
-      if (!user) {
-        alert("Username salah");
-        return;
-      }
+  const user = app.findUser(username);
 
-      if (!loginApp.cekPassword(user, password)) {
-        alert("Password salah");
-        return;
-      }
+  if (!user) {
+    alert("Username salah");
+    return;
+  }
 
-      // SIMPAN KE LOCAL STORAGE
-      localStorage.setItem("login", "true");
-      localStorage.setItem("username", user.username);
-      localStorage.setItem("nama", user.nama);
+  if (!app.checkPassword(user, password)) {
+    alert("Password salah");
+    return;
+  }
 
-      // BERSIHKAN INPUT
-      usernameInput.value = "";
-      passwordInput.value = "";
+  // SIMPAN STATUS LOGIN
+  localStorage.setItem("statusLogin", "true");
+  localStorage.setItem("userLogin", JSON.stringify(user));
 
-      tampilDashboard(user.nama);
-    }
+  document.getElementById("username").value = "";
+  document.getElementById("password").value = "";
 
-    // TAMPIL DASHBOARD
-    function tampilDashboard(nama) {
-      document.getElementById("loginPage").style.display = "none";
-      document.getElementById("dashboard").style.display = "block";
-      document.getElementById("welcomeText").innerText =
-        `Selamat datang kembali, ${nama} 👋`;
-    }
+  tampilDashboard();
+}
 
-    // LOGOUT
-    function logout() {
-      localStorage.clear();
-      document.getElementById("dashboard").style.display = "none";
-      document.getElementById("loginPage").style.display = "block";
-    }
+/* =======================
+   TAMPIL DASHBOARD
+======================= */
+function tampilDashboard() {
+  const userLogin = JSON.parse(localStorage.getItem("userLogin"));
 
-    // AUTO LOGIN JIKA ADA DATA
-    window.onload = function () {
-      if (localStorage.getItem("login") === "true") {
-        const nama = localStorage.getItem("nama");
-        tampilDashboard(nama);
-      }
-    };
-  </script>
+  document.getElementById("loginPage").style.display = "none";
+  document.getElementById("dashboard").style.display = "block";
+
+  document.getElementById("welcomeText").innerText =
+    `Selamat datang kembali, ${userLogin.nama} 👋`;
+}
+
+/* =======================
+   LOGOUT
+======================= */
+function logout() {
+  localStorage.removeItem("statusLogin");
+  localStorage.removeItem("userLogin");
+
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("loginPage").style.display = "block";
+}
+
+/* =======================
+   AUTO LOGIN JIKA SUDAH LOGIN
+======================= */
+if (localStorage.getItem("statusLogin") === "true") {
+  tampilDashboard();
+}
+</script>
 
 </body>
 </html>
