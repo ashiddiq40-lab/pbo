@@ -1,50 +1,21 @@
-// dataset JSON lokal
-const users = [
-  {
-    username: "admin",
-    password: "12345",
-    nama: "Administrator",
-    role: "Admin"
-  },
-  {
-    username: "user",
-    password: "abcde",
-    nama: "User Biasa",
-    role: "User"
-  }
-];
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Sederhana</title>
+</head>
+<body>
 
-// class OOP
-class Login {
-  constructor(users) {
-    this.users = users;
-  }
+  <h2>Login</h2>
 
-  cekLogin(username, password) {
-    return this.users.find(
-      user => user.username === username && user.password === password
-    );
-  }
-}
+  <input type="text" id="username" placeholder="Username"><br><br>
+  <input type="password" id="password" placeholder="Password"><br><br>
+  <button onclick="login()">Login</button>
 
-// object login
-const loginApp = new Login(users);
+  <hr>
 
-// fungsi login
-function login() {
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
+  <div id="hasil"></div>
 
-  const user = loginApp.cekLogin(username, password);
-
-  if (!user) {
-    alert("salah login");
-  } else {
-    document.getElementById("info").innerHTML = `
-      <h3>Login Berhasil</h3>
-      <p>Nama : ${user.nama}</p>
-      <p>Username : ${user.username}</p>
-      <p>Role : ${user.role}</p>
-    `;
-  }
-}
+  <script src="script.js"></script>
+</body>
+</html>
