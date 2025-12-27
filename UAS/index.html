@@ -12,7 +12,7 @@
       justify-content: center;
       align-items: center;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #74ebd5, #9face6);
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
     }
 
     .box {
@@ -25,12 +25,17 @@
       animation: fadeIn 0.4s ease;
     }
 
+    h2 {
+      margin-bottom: 15px;
+    }
+
     input {
       width: 100%;
       padding: 10px;
       margin: 8px 0;
       border-radius: 5px;
       border: 1px solid #ccc;
+      font-size: 14px;
     }
 
     button {
@@ -67,19 +72,25 @@
     .welcome {
       font-size: 18px;
       font-weight: bold;
-      color: #1e90ff;
+      color: #27ae60;
       margin-bottom: 20px;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- LOGIN PAGE -->
+  <!-- HALAMAN LOGIN -->
   <div class="box" id="loginPage">
     <h2>Login</h2>
     <input type="text" id="username" placeholder="Username">
@@ -87,7 +98,7 @@
     <button class="btn-login" onclick="login()">Login</button>
   </div>
 
-  <!-- DASHBOARD -->
+  <!-- HALAMAN SETELAH LOGIN -->
   <div class="box" id="dashboard">
     <div class="welcome" id="welcomeText"></div>
     <button class="btn-logout" onclick="logout()">Logout</button>
@@ -96,3 +107,4 @@
   <script src="app.js"></script>
 </body>
 </html>
+
