@@ -22,11 +22,6 @@
       border-radius: 10px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       text-align: center;
-      animation: fadeIn 0.4s ease;
-    }
-
-    h2 {
-      margin-bottom: 15px;
     }
 
     input {
@@ -35,7 +30,6 @@
       margin: 8px 0;
       border-radius: 5px;
       border: 1px solid #ccc;
-      font-size: 14px;
     }
 
     button {
@@ -49,25 +43,10 @@
       cursor: pointer;
     }
 
-    .btn-login {
-      background: #1e90ff;
-    }
+    .btn-login { background: #1e90ff; }
+    .btn-logout { background: #e74c3c; }
 
-    .btn-login:hover {
-      background: #187bcd;
-    }
-
-    .btn-logout {
-      background: #e74c3c;
-    }
-
-    .btn-logout:hover {
-      background: #c0392b;
-    }
-
-    #dashboard {
-      display: none;
-    }
+    #dashboard { display: none; }
 
     .welcome {
       font-size: 18px;
@@ -75,22 +54,10 @@
       color: #27ae60;
       margin-bottom: 20px;
     }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
   </style>
 </head>
 <body>
 
-  <!-- HALAMAN LOGIN -->
   <div class="box" id="loginPage">
     <h2>Login</h2>
     <input type="text" id="username" placeholder="Username">
@@ -98,7 +65,6 @@
     <button class="btn-login" onclick="login()">Login</button>
   </div>
 
-  <!-- HALAMAN SETELAH LOGIN -->
   <div class="box" id="dashboard">
     <div class="welcome" id="welcomeText"></div>
     <button class="btn-logout" onclick="logout()">Logout</button>
