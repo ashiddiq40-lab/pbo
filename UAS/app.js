@@ -1,56 +1,98 @@
-// DATASET JSON LOKAL
-const dataUser = [
-  {
-    username: "admin",
-    password: "123",
-    nama: "Administrator",
-    level: "Admin"
-  },
-  {
-    username: "user",
-    password: "456",
-    nama: "User Biasa",
-    level: "User"
-  }
-];
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Web</title>
 
-// CLASS OOP
-class Login {
-  constructor(users) {
-    this.users = users;
-  }
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #9face6);
+    }
 
-  cekLogin(username, password) {
-    return this.users.find(
-      u => u.username === username && u.password === password
-    );
-  }
-}
+    .box {
+      width: 320px;
+      padding: 25px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      animation: fadeIn 0.4s ease;
+    }
 
-// OBJECT
-const loginApp = new Login(dataUser);
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
 
-// FUNCTION LOGIN
-function login() {
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+    }
 
-  const user = loginApp.cekLogin(username, password);
+    .btn-login {
+      background: #1e90ff;
+    }
 
-  if (!user) {
-    alert("salah login");
-  } else {
-    // pindah tampilan
-    document.getElementById("loginBox").style.display = "none";
-    document.getElementById("infoUser").style.display = "block";
+    .btn-login:hover {
+      background: #187bcd;
+    }
 
-    // ucapan selamat datang
-    document.getElementById("welcomeText").innerText =
-      "Selamat datang kembali, " + user.nama + "!";
+    .btn-logout {
+      background: #e74c3c;
+    }
 
-    // info user
-    document.getElementById("nama").innerText = "Nama : " + user.nama;
-    document.getElementById("user").innerText = "Username : " + user.username;
-    document.getElementById("level").innerText = "Level : " + user.level;
-  }
-}
+    .btn-logout:hover {
+      background: #c0392b;
+    }
+
+    #dashboard {
+      display: none;
+    }
+
+    .welcome {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1e90ff;
+      margin-bottom: 20px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN PAGE -->
+  <div class="box" id="loginPage">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button class="btn-login" onclick="login()">Login</button>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="box" id="dashboard">
+    <div class="welcome" id="welcomeText"></div>
+    <button class="btn-logout" onclick="logout()">Logout</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
