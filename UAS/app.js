@@ -1,98 +1,67 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <title>Login Web</title>
-  
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #74ebd5, #9face6);
-    }
+// DATASET JSON LOKAL
+const dataUser = [
+  {
+    username: "admin",
+    password: "123",
+    nama: "Administrator"
+  },
+  {
+    username: "user",
+    password: "456",
+    nama: "User Biasa"
+  }
+];
 
-    .box {
-      width: 320px;
-      padding: 25px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-      text-align: center;
-      animation: fadeIn 0.4s ease;
-    }
+// CLASS (OOP)
+class Login {
+  constructor(users) {
+    this.users = users;
+  }
 
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
+  cekUsername(username) {
+    return this.users.find(u => u.username === username);
+  }
 
-    button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 5px;
-      color: white;
-      font-size: 15px;
-      cursor: pointer;
-    }
+  cekPassword(user, password) {
+    return user.password === password;
+  }
+}
 
-    .btn-login {
-      background: #1e90ff;
-    }
+// OBJECT
+const loginApp = new Login(dataUser);
 
-    .btn-login:hover {
-      background: #187bcd;
-    }
+// LOGIN
+function login() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
 
-    .btn-logout {
-      background: #e74c3c;
-    }
+  // cek username dulu
+  const user = loginApp.cekUsername(username);
 
-    .btn-logout:hover {
-      background: #c0392b;
-    }
+  if (!user) {
+    alert("Username salah");
+    return;
+  }
 
-    #dashboard {
-      display: none;
-    }
+  // cek password
+  if (!loginApp.cekPassword(user, password)) {
+    alert("Password salah");
+    return;
+  }
 
-    .welcome {
-      font-size: 18px;
-      font-weight: bold;
-      color: #1e90ff;
-      margin-bottom: 20px;
-    }
+  // LOGIN BERHASIL
+  document.getElementById("username").value = "";
+  document.getElementById("password").value = "";
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
-</head>
-<body>
+  document.getElementById("loginPage").style.display = "none";
+  document.getElementById("dashboard").style.display = "block";
 
-  <!-- LOGIN PAGE -->
-  <div class="box" id="loginPage">
-    <h2>Login</h2>
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
-    <button class="btn-login" onclick="login()">Login</button>
-  </div>
+  document.getElementById("welcomeText").innerText =
+    `Selamat datang kembali, ${user.nama} 👋`;
+}
 
-  <!-- DASHBOARD -->
-  <div class="box" id="dashboard">
-    <div class="welcome" id="welcomeText"></div>
-    <button class="btn-logout" onclick="logout()">Logout</button>
-  </div>
-
-  <script src="app.js"></script>
-</body>
-</html>
+// LOGOUT
+function logout() {
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("loginPage").style.display = "block";
+}
