@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Login Sederhana</title>
+  <title>Login Web</title>
 
   <style>
     body {
@@ -11,8 +11,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
+      font-family: Arial;
+      background: #f2f2f2;
     }
 
     .box {
@@ -24,50 +24,35 @@
       text-align: center;
     }
 
-    input {
+    input, button {
       width: 100%;
       padding: 8px;
       margin: 8px 0;
     }
 
-    button {
-      width: 100%;
-      padding: 8px;
-      background: #3498db;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #2980b9;
-    }
-
-    /* halaman info disembunyikan dulu */
-    #infoPage {
+    #infoUser {
       display: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- HALAMAN LOGIN -->
-  <div class="box" id="loginPage">
+  <!-- LOGIN -->
+  <div class="box" id="loginBox">
     <h2>Login</h2>
     <input type="text" id="username" placeholder="Username">
     <input type="password" id="password" placeholder="Password">
     <button onclick="login()">Login</button>
   </div>
 
-  <!-- HALAMAN INFO USER -->
-  <div class="box" id="infoPage">
+  <!-- INFO USER -->
+  <div class="box" id="infoUser">
     <h2>Info Pengguna</h2>
-    <p id="infoNama"></p>
-    <p id="infoUsername"></p>
-    <p id="infoLevel"></p>
-    <button onclick="logout()">Logout</button>
+    <p id="nama"></p>
+    <p id="user"></p>
+    <p id="level"></p>
   </div>
 
-  <script src="script.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
