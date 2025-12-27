@@ -19,7 +19,7 @@ class Login {
   }
 
   cekUsername(username) {
-    return this.users.find(u => u.username === username);
+    return this.users.find(user => user.username === username);
   }
 
   cekPassword(user, password) {
@@ -32,26 +32,28 @@ const loginApp = new Login(dataUser);
 
 // LOGIN
 function login() {
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
+  const usernameInput = document.getElementById("username");
+  const passwordInput = document.getElementById("password");
 
-  // cek username dulu
+  const username = usernameInput.value;
+  const password = passwordInput.value;
+
+  // CEK USERNAME
   const user = loginApp.cekUsername(username);
-
   if (!user) {
     alert("Username salah");
     return;
   }
 
-  // cek password
+  // CEK PASSWORD
   if (!loginApp.cekPassword(user, password)) {
     alert("Password salah");
     return;
   }
 
   // LOGIN BERHASIL
-  document.getElementById("username").value = "";
-  document.getElementById("password").value = "";
+  usernameInput.value = "";
+  passwordInput.value = "";
 
   document.getElementById("loginPage").style.display = "none";
   document.getElementById("dashboard").style.display = "block";
@@ -65,3 +67,4 @@ function logout() {
   document.getElementById("dashboard").style.display = "none";
   document.getElementById("loginPage").style.display = "block";
 }
+
