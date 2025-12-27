@@ -1,1 +1,50 @@
-zzzzZZZZZZZZ (Shiddiq sedang turu)
+// dataset JSON lokal
+const users = [
+  {
+    username: "admin",
+    password: "12345",
+    nama: "Administrator",
+    role: "Admin"
+  },
+  {
+    username: "user",
+    password: "abcde",
+    nama: "User Biasa",
+    role: "User"
+  }
+];
+
+// class OOP
+class Login {
+  constructor(users) {
+    this.users = users;
+  }
+
+  cekLogin(username, password) {
+    return this.users.find(
+      user => user.username === username && user.password === password
+    );
+  }
+}
+
+// object login
+const loginApp = new Login(users);
+
+// fungsi login
+function login() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  const user = loginApp.cekLogin(username, password);
+
+  if (!user) {
+    alert("salah login");
+  } else {
+    document.getElementById("info").innerHTML = `
+      <h3>Login Berhasil</h3>
+      <p>Nama : ${user.nama}</p>
+      <p>Username : ${user.username}</p>
+      <p>Role : ${user.role}</p>
+    `;
+  }
+}
